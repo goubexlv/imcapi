@@ -5,7 +5,7 @@ import kotlin.text.toInt
 
 object Constants {
 
-    val dotenv = dotenv()
+    //val dotenv = dotenv()
 
     // MongoDB variable
     val MONGO_URL: String = System.getenv("MONGO_URL").toString()
