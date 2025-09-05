@@ -1,45 +1,138 @@
-# imcapi
+# IMC API ⚖️
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+**IMC API** est une API créée avec **Ktor** qui permet de calculer l’IMC (Indice de Masse Corporelle) pour un utilisateur et de consulter son historique. L’API utilise **MongoDB** pour stocker les données et **Koin** pour la gestion des dépendances.
 
-Here are some useful links to get you started:
+---
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+## 🚀 Fonctionnalités
 
-## Features
+| Nom                  | Description                                                       |
+|--------------------- |-----------------------------------------------------------------|
+| Calcul IMC           | Permet de calculer l’IMC à partir du poids, de la taille et de l’utilisateur |
+| Historique           | Stocke et récupère l’historique des IMC pour chaque utilisateur |
+| Gestion utilisateur  | Création et identification d’utilisateurs via `uuidUser`        |
+| MongoDB              | Stockage persistant des données                                  |
+| Koin                 | Injection de dépendances                                         |
+| JSON                 | Sérialisation et désérialisation avec `kotlinx.serialization`    |
 
-Here's a list of features included in this project:
+---
 
-| Name                                                                   | Description                                                                        |
-| ------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Koin](https://start.ktor.io/p/koin)                                   | Provides dependency injection                                                      |
-| [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
-| [MongoDB](https://start.ktor.io/p/mongodb)                             | Adds MongoDB database to your application                                          |
-| [Caching Headers](https://start.ktor.io/p/caching-headers)             | Provides options for responding with standard cache-control headers                |
+## 🌡️ Endpoints
 
-## Building & Running
+### 1️⃣ Calcul IMC
 
-To build or run the project, use one of the following tasks:
+**POST** `/imc`
 
-| Task                          | Description                                                          |
-| -------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`              | Run the tests                                                        |
-| `./gradlew build`             | Build everything                                                     |
-| `buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `run`                         | Run the server                                                       |
-| `runDocker`                   | Run using the local docker image                                     |
+#### Paramètres (JSON)
 
-If the server starts successfully, you'll see the following output:
-
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+```json
+{
+  "poids": 70.0,
+  "taille": 177,
+  "uuidUser": "123e4567-e89b-12d3-a456-426614174000"
+}
 ```
 
-# imcapi
+#### Exemple de réponse (JSON)
+
+```json
+{
+  "imc": 22.36,
+  "message": "Poids normal"
+}
+```
+
+#### 2️⃣ Historique IMC
+
+**GET** `/history`
+
+#### Paramètres 
+
+
+| Paramètre | Type   | Description                 |
+|-----------|--------|-----------------------------|
+| `uuidUser`   | string | UUID de l’utilisateur (ex: 123e4567-e89b-12d3-a456-426614174000) |
+
+#### Exemple de requête
+
+```bash
+    curl -X GET "http://127.0.0.1:8080/history?uuidUser=123e4567-e89b-12d3-a456-426614174000"
+```
+
+#### Exemple de réponse (JSON)
+
+```json
+[
+  {
+    "id": "64f1fbc8e0b5e74a2a1e7c01",
+    "uuid": "123e4567-e89b-12d3-a456-426614174000",
+    "uuidUser": "123e4567-e89b-12d3-a456-426614174000",
+    "imc": 22.36,
+    "poids": 70.0,
+    "taille": 177,
+    "message": "Poids normal",
+    "createDate": "2025-09-05T12:34:56"
+  }
+]
+```
+
+#### 3️⃣ Gestion utilisateur
+
+**POST** `/register`
+
+#### Paramètres (JSON)
+
+```json
+{
+  "name": "goube"
+}
+```
+
+#### Exemple de réponse (JSON)
+
+```json
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "goube"
+}
+```
+
+#### 🏗️ Installation et lancement
+
+```bash
+    ./gradlew build         # Compile le projet
+    ./gradlew test          # Lance les tests
+    
+    ./gradlew run           # Lance le serveur en local
+    
+    ./gradlew buildImage                    # Crée l'image Docker
+    ./gradlew publishImageToLocalRegistry  # Publie l'image localement
+    ./gradlew runDocker                     # Lance le conteneur Docker
+
+    
+    2025-09-05 12:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
+    2025-09-05 12:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
