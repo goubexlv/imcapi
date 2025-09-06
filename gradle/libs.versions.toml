@@ -8,6 +8,7 @@ redis-version = "5.0.0"
 dotenv-kotlin = "6.5.1"
 
 [libraries]
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 redis-clients = { module = "redis.clients:jedis", version.ref = "redis-version" }
 dotenv-kotlin = { module = "io.github.cdimascio:dotenv-kotlin", version.ref = "dotenv-kotlin" }
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }

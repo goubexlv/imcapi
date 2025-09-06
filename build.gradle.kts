@@ -12,6 +12,7 @@ application {
 }
 
 dependencies {
+    implementation(libs.ktor.server.cors)
     implementation(libs.dotenv.kotlin)
     implementation(libs.redis.clients)
     implementation(libs.koin.ktor)

@@ -1,7 +1,7 @@
 package cm.daccvo
 
+import cm.daccvo.plugins.configureCORS
 import cm.daccvo.plugins.configureFrameworks
-import cm.daccvo.plugins.configureHTTP
 import cm.daccvo.plugins.configureRouting
 import cm.daccvo.plugins.configureSerialization
 import io.ktor.server.application.*
@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureFrameworks()
+    configureCORS()
     configureSerialization()
-    configureHTTP()
     configureRouting()
 }
