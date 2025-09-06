@@ -9,14 +9,14 @@ import io.ktor.http.*
 
 fun Application.configureCORS() {
     install(CORS) {
+        anyHost()
         allowMethod(HttpMethod.Get)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Options)
 
-        anyHost() // ⚠️ Seulement pour tests ! En prod, remplace par allowHost("ton-domaine.com")
-
+        // ⚠️ Seulement pour tests ! En prod, remplace par allowHost("ton-domaine.com")
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.Authorization)
     }
