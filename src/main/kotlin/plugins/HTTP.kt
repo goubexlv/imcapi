@@ -16,8 +16,7 @@ fun Application.configureCORS() {
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Options)
 
-        // ⚠️ Seulement pour tests ! En prod, remplace par allowHost("ton-domaine.com")
         allowHeader(HttpHeaders.ContentType)
-        allowHeader(HttpHeaders.Authorization)
+        //allowHeader(HttpHeaders.Authorization)
     }
 }
